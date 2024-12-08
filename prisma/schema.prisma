@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ServiceProvider {
+  id            String         @id
+  email         String         @unique
+  name          String
+  services      Service[]
+  availabilities Availability[]
+  blockedTimes  BlockedTime[]
+  calendarConnections CalendarConnection[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Service {
+  id               String         @id @default(cuid())
+  name             String
+  description      String?
+  duration         Int            // in minutes
+  price           Float?
+  serviceProvider  ServiceProvider @relation(fields: [providerId], references: [id])
+  providerId       String
+  bookings        Booking[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model Availability {
+  id               String         @id @default(cuid())
+  dayOfWeek        Int           // 0-6 (Sunday-Saturday)
+  startTime        String        // Format: HH:mm
+  endTime          String        // Format: HH:mm
+  serviceProvider  ServiceProvider @relation(fields: [providerId], references: [id])
+  providerId       String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model BlockedTime {
+  id               String         @id @default(cuid())
+  startTime        DateTime
+  endTime          DateTime
+  reason           String?
+  serviceProvider  ServiceProvider @relation(fields: [providerId], references: [id])
+  providerId       String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model CalendarConnection {
+  id               String         @id @default(cuid())
+  provider         String        // 'google' | 'apple' | 'outlook'
+  accessToken      String
+  refreshToken     String?
+  expiresAt        DateTime?
+  serviceProvider  ServiceProvider @relation(fields: [providerId], references: [id])
+  providerId       String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model Customer {
+  id            String         @id
+  email         String        @unique
+  name          String?
+  bookings      Booking[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Booking {
+  id            String         @id @default(cuid())
+  startTime     DateTime
+  endTime       DateTime
+  status        String        // 'pending' | 'confirmed' | 'cancelled'
+  service       Service        @relation(fields: [serviceId], references: [id])
+  serviceId     String
+  customer      Customer?      @relation(fields: [customerId], references: [id])
+  customerId    String?
+  guestEmail    String?       // For non-logged-in customers
+  guestName     String?
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
