@@ -2,7 +2,7 @@
 
 A modern appointment booking platform built with Next.js, Drizzle ORM, Clerk Auth, and Vercel Postgres.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FvisualiseIT%2Fbooking-saas&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY,RESEND_API_KEY&integration-ids=oac_7gmZNmR4o6VWyxgkg9WfPrVn)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FvisualiseIT%2Fbooking-saas&env=RESEND_API_KEY&integration-ids=oac_7gmZNmR4o6VWyxgkg9WfPrVn,clkpwlqq5000evp7z1wwvk56q)
 
 ## Features
 
