@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Booking SaaS Platform
 
-## Getting Started
+A modern appointment booking platform built with Next.js, Drizzle ORM, Clerk Auth, and Vercel Postgres.
 
-First, run the development server:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FvisualiseIT%2Fbooking-saas&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY,RESEND_API_KEY&integration-ids=oac_VqOgBHqhEoFTPzGkPd7L0iH6)
+
+## Features
+
+- 📅 Easy appointment scheduling
+- 🔒 Authentication with Clerk
+- 📧 Email notifications via Resend
+- 📊 Calendar integration (Google, Apple, Outlook)
+- 💼 Service provider dashboard
+- 🎯 Customer booking portal
+- ⚡ Built on Next.js and Vercel
+
+## One-Click Deploy
+
+1. Click the "Deploy with Vercel" button above
+2. Set up the following environment variables:
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Get from [Clerk Dashboard](https://dashboard.clerk.dev)
+   - `CLERK_SECRET_KEY`: Get from [Clerk Dashboard](https://dashboard.clerk.dev)
+   - `RESEND_API_KEY`: Get from [Resend Dashboard](https://resend.com/dashboard)
+   - `DATABASE_URL`: Will be automatically set up by Vercel Postgres integration
+
+The deploy button will:
+1. Clone this repository to your GitHub account
+2. Create a new Vercel project
+3. Set up Vercel Postgres automatically
+4. Deploy the application
+5. Create database tables using Drizzle ORM
+
+## Post-Deployment Setup
+
+After deploying, you'll need to:
+
+1. Set up your Clerk application:
+   - Create a new application in [Clerk Dashboard](https://dashboard.clerk.dev)
+   - Configure your OAuth providers (Google, etc.) if needed
+   - Add your Vercel deployment URL to allowed origins
+
+2. Configure Resend:
+   - Verify your domain in Resend dashboard
+   - Set up email templates
+
+3. (Optional) Set up calendar integration:
+   - Configure OAuth credentials for Google Calendar
+   - Add calendar integration credentials to environment variables
+
+## Local Development
 
 ```bash
+# Clone the repository
+git clone https://github.com/YOUR_GITHUB_USERNAME/booking-saas.git
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+
+# Run database migrations
+npm run db:generate
+npm run db:push
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file with the following variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+# Database (Vercel Postgres)
+DATABASE_URL=
 
-## Learn More
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-To learn more about Next.js, take a look at the following resources:
+# Resend Email
+RESEND_API_KEY=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Optional: Calendar Integration
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Framework:** Next.js 14
+- **Database:** Vercel Postgres
+- **ORM:** Drizzle ORM
+- **Authentication:** Clerk
+- **Email:** Resend
+- **Styling:** Tailwind CSS
+- **Deployment:** Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License
